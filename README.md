@@ -17,4 +17,4 @@ If arg is not given, it will sent a random xkcd comic.
 
 ## Stop bot
 The command
-```?exit``` simply stops it.
+```?exit``` stops the bot.
