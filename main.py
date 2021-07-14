@@ -48,15 +48,22 @@ async def _astrid(ctx):
 
 @bot.command(name="xkcd", pass_context=True)
 async def _xkcd(ctx, var="False"):
+    err = False
     if var.isdigit():
-        comic = xkcd.getComic(int(var))
+        nb = int(var)
+        if nb <= 0 or nb > xkcd.getLatestComicNum():
+            err = True
+            await ctx.channel.send("Ce numéro n'est pas valable, réessaye.")
+        else:
+            comic = xkcd.getComic(nb)
     elif var == "last":
         comic = xkcd.getLatestComic()
     else:
         comic = xkcd.getRandomComic()
-    await ctx.channel.send(comic.getTitle())
-    await ctx.channel.send(comic.getImageLink())
-    await ctx.channel.send(comic.getAltText())
+    if not err:
+        await ctx.channel.send(comic.getTitle())
+        await ctx.channel.send(comic.getImageLink())
+        await ctx.channel.send(comic.getAltText())
 
 
 
