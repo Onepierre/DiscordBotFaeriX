@@ -11,9 +11,15 @@ to create and send a picture showing a proverb taken in the file ```astrid/quote
 Use the command 
 ```?xkcd [arg]```.  
 It will send in the channel a xkcd comic depending on the value of arg.  
-If arg is a number, it will sent the corresponding xkcd comic.  
+If arg is a positive number, it will sent the corresponding xkcd comic.  
+If arg is a negative number, it will sent the corresponding xkcd comic counting from the last published one. 
 If arg is ```"last"```, it will sent the last xkcd comic.  
-If arg is not given, it will sent a random xkcd comic.  
+If arg is not given, it will sent a random xkcd comic. 
+
+## Display Cardboard Crack comics
+Use the command 
+```?mtg ```.  
+It will send in the channel a random Cardboard Crack comic.
 
 ## Stop bot
 The command
