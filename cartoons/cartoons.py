@@ -206,6 +206,12 @@ class cartoonsCog(commands.Cog):
                         await chan.send(file=discord.File(f))
                         await chan.send("Cartoon réalisé par Cardboard Crack (https://cardboard-crack.com/)")
                 
+        path = 'cartoons/cardboard_crack/'
+        files = os.listdir(path)
+        for _, file in enumerate(files):
+            MTG_CARTOONS.append(file)
+        MTG_CARTOONS.sort()
+                
         if new:
             pickle.dump(urls, open("cartoons/data/urls.txt", "wb"))
         else:
