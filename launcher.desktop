@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=v1.0
+Name=Discord Bot
+Exec=python3.8 /media/onepierre/DATA/Documents/Projects/DiscordBotFaeriX/main.py
+Path=/media/onepierre/DATA/Documents/Projects/DiscordBotFaeriX/
+Icon=/media/onepierre/DATA/Documents/Projects/DiscordBotFaeriX/Astrid.png
+Terminal=true
+Type=Application
