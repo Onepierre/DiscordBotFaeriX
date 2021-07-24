@@ -1,6 +1,18 @@
 # Discord Bot for FaeriX chads
 To add it to your server, create your own bot on discord dev panel and use the code in main.py.
-It runs with Python3.7. 
+It runs with Python3.8. 
+
+You need to get a discord connection token and put it in `~/token.txt`
+Then use the following command :
+```python3.8 main.py```
+
+If you need a launcher on the desktop, use the `launcher.desktop` to do this (for ubuntu). Do not forget to modify the path written on if.
+
+## Function examples
+
+## Help
+To get more precise description of functions available, use the command ```?help``` to get a list of functions, or ```?help name``` to get a description of a specific function.
+
 
 ## Use Astrid's advices.
 Use the command 
@@ -27,3 +39,4 @@ The cartoons must be in a folder named cardboard_crack as no API is existing.
 ## Stop bot
 The command
 ```?exit``` stops the bot.
+
