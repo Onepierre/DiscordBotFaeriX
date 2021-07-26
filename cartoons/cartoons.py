@@ -1,8 +1,7 @@
 import pickle
 import time
-import shutil
+from datetime import datetime
 from typing import DefaultDict
-import requests
 from discord.ext import commands,tasks
 import discord
 import numpy as np
@@ -182,11 +181,13 @@ class cartoonsCog(commands.Cog):
         urls = pickle.load(open("cartoons/data/urls.txt", "rb"))
         new = False
         n = len(urls)
+        now = datetime.now()
+        now.strftime("%d/%m/%Y %H:%M:%S")
+        print("Date: " + str(now)[0:19])
         for i, url in enumerate(urls_new):
             if not url in urls:
                 new = True
                 print("New cartoon :")
-                print(url)
                 name, file = download_post(url)
                 urls = np.append(urls, [url])
 
@@ -196,7 +197,6 @@ class cartoonsCog(commands.Cog):
                 track = pickle.load(open("cartoons/data/mtg_follow.txt", "rb"))
                 for chanid in track:
                     with open(file, 'rb') as f:
-                        print(chanid)
                         chan = discord.utils.get(self.bot.get_guild(chanid[0]).channels,id = chanid[1])
                         if not chanid[2] == None:
                             role = discord.utils.get(self.bot.get_guild(chanid[0]).roles,name=chanid[2])
@@ -214,6 +214,7 @@ class cartoonsCog(commands.Cog):
                 
         if new:
             pickle.dump(urls, open("cartoons/data/urls.txt", "wb"))
+
         else:
             print("No new Cardboard Crack cartoon")
 
