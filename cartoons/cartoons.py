@@ -21,8 +21,10 @@ class cartoonsCog(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
+        self.new_astrid.start()
         self.update_mtg.start()
         self.update_xkcd.start()
+
 
     @commands.command(name="follow", pass_context=True)
     async def _follow(self, ctx, name = None):
@@ -45,7 +47,6 @@ class cartoonsCog(commands.Cog):
                     if not role == None:
                         await ctx.message.author.add_roles(role)
                         await ctx.channel.send("{}, you'll be tagged for new Xkcd cartoons in this channel.".format(ctx.message.author.mention))
-                    
 
     @commands.command(name="unfollow", pass_context=True)
     async def _unfollow(self, ctx, name = None):
@@ -69,7 +70,6 @@ class cartoonsCog(commands.Cog):
                         await ctx.message.author.remove_roles(role)
                         await ctx.channel.send("{}, you won't be tagged anymore for new Xkcd cartoons in this channel.".format(ctx.message.author.mention))
                     
-
     @commands.command(name="followmtg", pass_context=True)
     async def _follow_mtg(self, ctx, name = None):
         id = ctx.message.guild.id
@@ -116,6 +116,30 @@ class cartoonsCog(commands.Cog):
             pickle.dump(track, open("cartoons/data/xkcd_follow.txt", "wb"))
             await ctx.channel.send("Successfully added canal")
             if not role == None:
+                await ctx.channel.send("{} will be tagged for new cartoons".format(role.mention))
+
+    @commands.command(name="followastrid", pass_context=True)
+    async def _follow_astrid(self, ctx, name = None):
+        id = ctx.message.guild.id
+        track = pickle.load(open("cartoons/data/astrid_follow.txt", "rb"))
+        temp = []
+        role = discord.utils.get(self.bot.get_guild(id).roles,name=name)
+        tag = [id,ctx.channel.id,name]
+        remove = False
+        for a in track:
+            if a[0] == tag[0] and a[1] == tag[1]:
+                remove = True
+        if remove:
+            for a in track:
+                if not (a[0] == tag[0] and a[1] == tag[1]):
+                    temp.append(a)
+            pickle.dump(temp, open("cartoons/data/astrid_follow.txt", "wb"))
+            await ctx.channel.send("Successfully removed canal")
+        else:
+            track.append(tag)
+            pickle.dump(track, open("cartoons/data/astrid_follow.txt", "wb"))
+            await ctx.channel.send("Successfully added canal")
+            if not role==None:
                 await ctx.channel.send("{} will be tagged for new cartoons".format(role.mention))
 
     @commands.command(name="mtg", pass_context=True)
@@ -181,9 +205,7 @@ class cartoonsCog(commands.Cog):
         urls = pickle.load(open("cartoons/data/urls.txt", "rb"))
         new = False
         n = len(urls)
-        now = datetime.now()
-        now.strftime("%d/%m/%Y %H:%M:%S")
-        print("Date: " + str(now)[0:19])
+
         for i, url in enumerate(urls_new):
             if not url in urls:
                 new = True
@@ -236,8 +258,21 @@ class cartoonsCog(commands.Cog):
         else:
             print("No new Xkcd cartoon")
 
-
-
+    @tasks.loop(minutes = 30)
+    async def new_astrid(self):  
+        now = datetime.now()
+        now.strftime("%d/%m/%Y %H:%M:%S")
+        print("Date: " + str(now)[0:19])
+        track = pickle.load(open("cartoons/data/astrid_follow.txt", "rb"))
+        create_image()
+        for chanid in track:
+            chan = discord.utils.get(self.bot.get_guild(chanid[0]).channels,id = chanid[1])
+            if not chanid[2] == None:
+                role = discord.utils.get(self.bot.get_guild(chanid[0]).roles,name=chanid[2])
+                await chan.send('{}'.format(role.mention))
+            with open("astrid/conseil.png", 'rb') as f:
+                picture = discord.File(f)
+                await chan.send(file=picture)
 
 def setup(bot):
     # Every extension should have this function
