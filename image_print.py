@@ -35,7 +35,6 @@ def create_image():
     taille_font = 44
     font = ImageFont.truetype("fonts/arlrdbd.ttf", taille_font)
 
-    text = "Il est 10 heures et tout va bien. Il est 10 heures et tout va bien. Il est 10 heures et tout va bien."
     text = find_text()
 
     splitted = split_lines(text)
@@ -61,7 +60,7 @@ def create_image():
 
 def find_text():
     #quotes = np.loadtxt("astrid/quotes_lin.txt", delimiter=';', dtype='str')
-    quotes = np.loadtxt("astrid/quotes_win.txt", delimiter=';', dtype='str')
+    quotes = np.loadtxt("astrid/quotes.txt", delimiter=';', dtype='str')
     return np.random.choice(quotes)
 
 
