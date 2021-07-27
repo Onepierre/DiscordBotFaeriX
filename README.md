@@ -13,6 +13,15 @@ If you need a launcher on the desktop, use the `launcher.desktop` to do this (fo
 ## Help
 To get more precise description of functions available, use the command ```?help``` to get a list of functions, or ```?help name``` to get a description of a specific function.
 
+## Use Hate Speech detection with camemBert
+3 Labels are available : `Normal`, `Offensive` and `Hateful`.  
+Load the hate speech detection bot with : 
+```?loadBert```
+unload it to free memory with:
+```?unloadBert```  
+Then with Bert model with: 
+```?Bert "sentence"```
+After his answer, you'll be able to give the correct response. It will store the most voted response into a csv file for future training.
 
 ## Use Astrid's advices.
 Use the command 
