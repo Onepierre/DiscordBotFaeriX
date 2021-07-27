@@ -53,5 +53,6 @@ with open("token.txt", "r") as f:
     TOKEN = f.read()
 bot.load_extension("cartoons.cartoons")
 bot.load_extension("werewolves.werewolves")
+bot.load_extension("hate_speech.hate_speech")
 bot.load_extension("help")
 bot.run(TOKEN)
