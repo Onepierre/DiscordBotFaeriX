@@ -4,3 +4,5 @@ astrid/conseil.png
 astrid/temp.png
 __pycache__/
 cartoons/cardboard_crack/
+hate_speech/camembert.ckpt
+hate_speech/dataset.csv
