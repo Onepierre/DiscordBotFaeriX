@@ -169,7 +169,7 @@ class cartoonsCog(commands.Cog):
 
     @commands.command(name="astrid", pass_context=True)
     async def _astrid(self,ctx):
-        if "cartoons" in ctx.channel.name or "sages_paroles" in ctx.channel.name:
+        if "cartoons" in ctx.channel.name or "sages_paroles" in ctx.channel.name or "random" in ctx.channel.name:
             create_image()
             with open("astrid/conseil.png", 'rb') as f:
                 picture = discord.File(f)
@@ -258,7 +258,7 @@ class cartoonsCog(commands.Cog):
         else:
             print("No new Xkcd cartoon")
 
-    @tasks.loop(minutes = 30)
+    @tasks.loop(minutes = 60*12)
     async def new_astrid(self):  
         now = datetime.now()
         now.strftime("%d/%m/%Y %H:%M:%S")
